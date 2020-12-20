@@ -1,8 +1,13 @@
 import numpy as np
+from open3d.open3d.geometry import create_rgbd_image_from_color_and_depth
 from record3d import Record3DStream
 import cv2
 from threading import Event
-
+# from open3d import *
+import argparse
+import sys
+import os
+# from PIL import Image
 
 class DemoApp:
     def __init__(self):
@@ -64,7 +69,40 @@ class DemoApp:
             cv2.imshow('Depth', depth)
             cv2.waitKey(1)
 
-            self.event.clear()
+            focalLength = 938.0
+            centerX = 319.5
+            centerY = 239.5
+            scalingFactor = 5000
+
+            print("rgb: " + str(rgb.size) + "depth: " + str(depth.size))
+
+            # if rgb.size != depth.size:
+            #     raise Exception("Color and depth image do not have the same resolution.")
+            # if rgb.mode != "RGB":
+            #         raise Exception("Color image is not in RGB format")
+            # if depth.mode != "I":
+            #     raise Exception("Depth image is not in intensity format")
+            #
+            # points = []
+            # for v in range(rgb.size[1]):
+            #     for u in range(rgb.size[0]):
+            #         color = rgb.getpixel((u, v))
+            #         Z = depth.getpixel((u, v)) / scalingFactor
+            #         print(Z)
+            #         if Z == 0: continue
+            #         X = (u - centerX) * Z / focalLength
+            #         Y = (v - centerY) * Z / focalLength
+            #         points.append("%f %f %f %d %d %d 0\n")
+
+                    # rgbd = create_rgbd_image_from_color_and_depth(rgb, depth, convert_rgb_to_intensity=False)
+            # pcd = create_point_cloud_from_rgbd_image(rgbd, )
+            #
+            # # flip the orientation, so it looks upright, not upside-down
+            # pcd.transform([[1, 0, 0, 0], [0, -1, 0, 0], [0, 0, -1, 0], [0, 0, 0, 1]])
+            #
+            # draw_geometries([pcd])  # visualize the point cloud
+
+            # self.event.clear()
 
 
 if __name__ == '__main__':
